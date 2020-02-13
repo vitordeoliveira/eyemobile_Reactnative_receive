@@ -15,7 +15,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
+          name="Main"
           component={Main}
           options={{ headerShown: false }}
         />

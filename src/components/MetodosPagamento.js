@@ -10,41 +10,42 @@ const MetodosPagamento = ({ value }) => {
   const scroll = useRef(null);
   const navigation = useNavigation();
 
+  const paginationEvent = e => {
+    const { x } = e.nativeEvent.contentOffset;
+    if (x > 160) {
+      setPagination(2);
+    } else {
+      setPagination(1);
+    }
+  };
+
+  const onPress = option => {
+    navigation.navigate("Recibo", { value, option });
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
         ref={scroll}
-        onScroll={e => {
-          const { x } = e.nativeEvent.contentOffset;
-          if (x > 160) {
-            setPagination(2);
-          } else {
-            setPagination(1);
-          }
-        }}
+        onScroll={e => paginationEvent(e)}
         pagingEnabled={true}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       >
         <View style={styles.page}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Recibo", { value, option: "Dinheiro" });
-            }}
-            style={styles.content}
-          >
+          <TouchableOpacity onPress={() => onPress(1)} style={styles.content}>
             <SvgXml height={50} xml={money}></SvgXml>
             <TextDIN size={17} mt={6} mt={6}>
               DINHEIRO
             </TextDIN>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.content}>
+          <TouchableOpacity onPress={() => onPress(2)} style={styles.content}>
             <SvgXml height={50} xml={debit}></SvgXml>
             <TextDIN size={17} mt={6}>
               DÉBITO
             </TextDIN>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.content}>
+          <TouchableOpacity onPress={() => onPress(3)} style={styles.content}>
             <SvgXml height={50} xml={credit}></SvgXml>
             <TextDIN size={17} mt={6}>
               CRÉDITO
@@ -53,13 +54,13 @@ const MetodosPagamento = ({ value }) => {
         </View>
 
         <View style={styles.page}>
-          <TouchableOpacity style={styles.content}>
+          <TouchableOpacity onPress={() => onPress(4)} style={styles.content}>
             <SvgXml height={50} xml={vr}></SvgXml>
             <TextDIN size={17} mt={6}>
               VR
             </TextDIN>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.content}>
+          <TouchableOpacity onPress={() => onPress(5)} style={styles.content}>
             <SvgXml height={50} xml={cupom}></SvgXml>
             <TextDIN size={17} mt={6}>
               CUPOM

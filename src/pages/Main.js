@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -7,7 +7,7 @@ import TextDIN from "../components/TextDIN";
 import Numbers from "../components/Numbers";
 import MetodosPagamento from "../components/MetodosPagamento";
 
-export default function App() {
+export default function Main() {
   const [value, setValue] = useState(0);
   const [currency, setCurrency] = useState("0,00");
 
@@ -88,7 +88,7 @@ export default function App() {
           </TextDIN>
         </Numbers>
 
-        <MetodosPagamento value={value}></MetodosPagamento>
+        <MetodosPagamento value={currency}></MetodosPagamento>
       </View>
     </LinearGradient>
   );
