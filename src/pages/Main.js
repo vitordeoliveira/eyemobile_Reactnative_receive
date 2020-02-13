@@ -8,51 +8,31 @@ import Numbers from "../components/Numbers";
 import MetodosPagamento from "../components/MetodosPagamento";
 
 export default function App() {
-  const [value, setValue] = useState("0,01");
-  const [position, setPosition] = useState(3);
+  const [value, setValue] = useState(0);
+  const [currency, setCurrency] = useState("0,00");
 
   const increaseValue = number => {
-    const valueArray = value.split("");
-    let newValue;
-
-    if (valueArray[position] === ",") {
-      valueArray[position - 1] = number;
-      newValue = valueArray.join("");
-      setPosition(position - 2);
-      setValue(newValue);
-    } else if (position >= 0) {
-      valueArray[position] = number;
-      newValue = valueArray.join("");
-      setPosition(position - 1);
-      setValue(newValue);
-    } else {
-      valueArray.unshift(number);
-      newValue = valueArray.join("");
-      setValue(newValue);
-      setPosition(position - 1);
-    }
+    const newValue = value + number;
+    setValue(Number(newValue));
+    const newCurrency = (Number(newValue) / 100).toFixed(2).replace(".", ",");
+    setCurrency(newCurrency);
   };
 
   const decreaseValue = () => {
-    const valueArray = value.split("");
-    let newValue;
+    // Option 1
+    // const valueArray = String(value).split("");
+    // valueArray.pop();
+    // const newValue = valueArray.join("");
 
-    if (position < -1) {
-      valueArray.shift();
-      newValue = valueArray.join("");
-      setValue(newValue);
-      setPosition(position + 1);
-    } else if (position === -1) {
-      valueArray[position + 1] = "0";
-      newValue = valueArray.join("");
-      setValue(newValue);
-      setPosition(position + 2);
-    } else if (position < 3) {
-      valueArray[position + 1] = "0";
-      newValue = valueArray.join("");
-      setValue(newValue);
-      setPosition(position + 1);
-    }
+    // Option 2
+    const newValue = String(value).slice(0, -1);
+
+    // Option 3
+    // const newValue = String(value).substring(0, str.length - 1);
+
+    const newCurrency = (Number(newValue) / 100).toFixed(2).replace(".", ",");
+    setValue(newValue);
+    setCurrency(newCurrency);
   };
 
   return (
@@ -63,7 +43,7 @@ export default function App() {
             {`R$  `}
           </TextDIN>
           <TextDIN color="#fff" size={60}>
-            {value}
+            {currency}
           </TextDIN>
         </View>
 
@@ -108,7 +88,7 @@ export default function App() {
           </TextDIN>
         </Numbers>
 
-        <MetodosPagamento value></MetodosPagamento>
+        <MetodosPagamento value={value}></MetodosPagamento>
       </View>
     </LinearGradient>
   );

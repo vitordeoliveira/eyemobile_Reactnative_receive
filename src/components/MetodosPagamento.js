@@ -29,7 +29,7 @@ const MetodosPagamento = ({ value }) => {
         <View style={styles.page}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Recibo", { option: "Dinheiro" });
+              navigation.navigate("Recibo", { value, option: "Dinheiro" });
             }}
             style={styles.content}
           >

@@ -11,9 +11,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import { logo } from "../components/Svgs";
 import { SvgXml } from "react-native-svg";
 import TextTahoma from "../components/TextTahoma";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import TextDIN from "../components/TextDIN";
 
 const { height, width } = Dimensions.get("window");
-const Recibo = () => {
+const Recibo = ({ route }) => {
+  const { value, option } = route.params;
+
   return (
     <LinearGradient
       colors={["#66ffcc", "#ff66ff"]}
@@ -28,18 +32,32 @@ const Recibo = () => {
         ></Image>
         <View style={styles.content}>
           <SvgXml height={30} xml={logo}></SvgXml>
-          <TextTahoma bold={true}>Eyemobile Tecnologia LTDA.</TextTahoma>
-          <TextTahoma>Rua Airton Roberto de Oliveira Número 64</TextTahoma>
-          <View>
-            <TextTahoma>R$30,00</TextTahoma>
-            <TextTahoma>Dinheiro</TextTahoma>
+
+          <View style={styles.center}>
+            <TextTahoma color="#8e8e8e" bold={true}>
+              Eyemobile Tecnologia LTDA.
+            </TextTahoma>
+            <TextTahoma></TextTahoma>
+            <TextTahoma color="#8e8e8e">
+              Rua Airton Roberto de Oliveira
+            </TextTahoma>
+            <TextTahoma color="#8e8e8e">Número 64</TextTahoma>
           </View>
 
-          <TextTahoma>21321321 3123213</TextTahoma>
+          <View style={styles.center}>
+            <TextTahoma bold color="#8e8e8e" size={32}>
+              R$ {value}
+            </TextTahoma>
+            <TextTahoma color="#8e8e8e">{option}</TextTahoma>
+          </View>
+
+          <TextTahoma color="#8e8e8e">21321321 3123213</TextTahoma>
         </View>
       </View>
 
-      <Button title="CONFIRMAR"></Button>
+      <TouchableOpacity style={styles.button}>
+        <TextDIN>CONFIRMAR</TextDIN>
+      </TouchableOpacity>
     </LinearGradient>
   );
 };
@@ -65,7 +83,11 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "space-evenly"
-  }
+  },
+  center: {
+    alignItems: "center"
+  },
+  button: {}
 });
 
 export default Recibo;
